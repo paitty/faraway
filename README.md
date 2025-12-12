@@ -1,5 +1,7 @@
 # Faraway
 
+![Coverage](assets/coverage-badge.svg)
+
 A Python simulation for the [Faraway](https://boardgamegeek.com/boardgame/369875/faraway) board game.
 
 ## About the Game
