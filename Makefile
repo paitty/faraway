@@ -1,4 +1,4 @@
-.PHONY: install install-dev test lint format typecheck clean
+.PHONY: install install-dev test lint format typecheck clean cov
 
 install:
 	uv pip install -e .
@@ -11,6 +11,9 @@ test:
 
 test-v:
 	uv run pytest -v
+
+cov:
+	uv run pytest --cov=faraway --cov-report=term-missing
 
 lint:
 	uv run ruff check .
