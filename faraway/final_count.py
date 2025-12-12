@@ -1,5 +1,5 @@
-from faraway.count_utils import compute_value, sum_assets, validate_prerequisites
-from faraway.data_structures import PlayerField
+from faraway.count_utils import compute_value, validate_prerequisites
+from faraway.player_field import PlayerField
 
 
 def final_count(field: PlayerField) -> int:
@@ -13,7 +13,7 @@ def final_count(field: PlayerField) -> int:
     # count the main cards from the last to the first
     for card in field.main_cards[::-1]:
         active_field.main_cards.append(card)
-        summed_assets = sum_assets([*active_field.main_cards, *active_field.bonus_cards])
+        summed_assets = active_field.get_summed_assets()
         if validate_prerequisites(card.prerequisites, summed_assets):
             total_reward += compute_value(card.rewards, summed_assets)
 
