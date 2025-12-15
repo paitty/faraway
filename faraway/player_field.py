@@ -7,6 +7,7 @@ from faraway.data_structures import BonusCard, MainCard, SummedAssets
 class PlayerField(BaseModel):
     main_cards: list[MainCard] = []
     bonus_cards: list[BonusCard] = []
+    n_rounds: int = 8
 
     def get_summed_assets(self) -> SummedAssets:
         return sum_assets([*self.main_cards, *self.bonus_cards])
@@ -35,8 +36,11 @@ class PlayerField(BaseModel):
         """
         return self.get_n_bonus_cards_gained() == len(self.bonus_cards)
 
-    def validate_final_field(self) -> bool:
+    def validate_final_field(self, use_bonus_cards: bool = True) -> bool:
         """
         Validate the final field.
         """
-        return len(self.main_cards) == 8 and self.validate_n_final_bonus_cards()
+        if use_bonus_cards:
+            return len(self.main_cards) == self.n_rounds and self.validate_n_final_bonus_cards()
+        else:
+            return len(self.main_cards) == self.n_rounds
