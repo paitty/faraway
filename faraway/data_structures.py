@@ -40,6 +40,7 @@ class Card(BaseModel):
 
 
 class BonusCard(Card):
+    id: int = 0
     def flatten(self) -> np.ndarray:
         flatten_assets = self.assets.flatten()
         flatten_rewards = self.rewards.flatten()
