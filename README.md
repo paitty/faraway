@@ -34,8 +34,10 @@ Requires Python 3.10+ and [Pydantic](https://docs.pydantic.dev/) v2.
 ## Usage
 
 ```python
-from faraway.data_structures import PlayerField, MainCard, BonusCard, Assets, Rewards, Prerequisites
+from faraway.data_structures import MainCard, BonusCard, Assets, Rewards, Prerequisites
+from faraway.player_field import PlayerField
 from faraway.final_count import final_count
+from faraway.generate_image import create_card_image
 
 # Create a player's field with their cards (in play order)
 field = PlayerField(
@@ -47,11 +49,19 @@ field = PlayerField(
             prerequisites=Prerequisites(animal=1),
             rewards=Rewards(flat=10)
         ),
+        MainCard(
+            assets=Assets(green=1, animal=1)
+        ),
     ],
     bonus_cards=[
         BonusCard(assets=Assets(yellow=1, map=1)),
     ]
 )
+
+# Display Player field
+playerfield_path = "playerfield.png"
+create_card_image(field, out_path=playerfield_path, card_size=256)
+print(f"✓ Saved {playerfield_path}")
 
 # Calculate the final score
 score = final_count(field)
